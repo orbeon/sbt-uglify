@@ -171,6 +171,10 @@ object SbtUglify extends AutoPlugin {
               Nil
             }
 
+            val otherArgs = Seq("--support-ie8")
+
+            val beautifyArgs = Seq("--beautify", "beautify=false,quote_keys=true")
+
             val defineArgs = define.value.map(Seq("--define", _)).getOrElse(Nil)
 
             val encloseArgs = if (enclose.value) Seq("--enclose") else Nil
@@ -182,8 +186,10 @@ object SbtUglify extends AutoPlugin {
             val includeSourceArgs = if (includeSource.value) Seq("--source-map-include-sources") else Nil
 
             val commonArgs =
-              mangleArgs ++
+              otherArgs ++
+                mangleArgs ++
                 compressArgs ++
+                beautifyArgs ++
                 defineArgs ++
                 encloseArgs ++
                 commentsArgs ++
